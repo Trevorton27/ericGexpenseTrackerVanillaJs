@@ -14,10 +14,8 @@ window.addEventListener("load", addRow);
 
 // functions
 
-
-
-function addRow(){
-    table.insertAdjacentHTML('beforeend', `<tr class="table-row">
+function addRow(){  //add row to table. uses insertAdjacentHTML method putting the html rows before the <tr> ends, hence beforeend
+    table.insertAdjacentHTML('beforeend', `<tr class="table-row"> 
     <td>
         <input class="date" type="date">
     </td>
@@ -31,29 +29,26 @@ function addRow(){
         <textarea class="description" name="" id="" cols="30" rows="2"></textarea>
     </td>
     <td>
-        <button>delete</button>
+        <button class="deleteBtn">delete</button>
     </td>
-</tr>`);
+</tr>`); 
     updateAmount();
 }
 
 function deleteRow(event){
-    if(event.target.tagName !== 'BUTTON') return;
-    const row = event.target.closest("tr")
-    row.parentElement.removeChild(row);
-    updateAmount();
+    if(event.target.tagName !== 'BUTTON') return;  // targets tagName that are NOT buttons and will return them.
+    const row = event.target.closest("tr"); // targets closest table row
+    row.parentElement.removeChild(row);  //action to remove specific row
+    updateAmount(); 
 }
 
 function updateAmount(){
     let total = 0;
-    const expenses = document.querySelectorAll('.amount');
-    for(const e of expenses){
-        total += parseFloat(e.value || 0);
+    const expenses = document.querySelectorAll('.amount'); // selects the amount class on line 23 as a node
+    for(let i = 0; i < expenses.length; i++){ //iterate through expenses, as this variable was created to target the .amount class using the querySelectorAll. This inturn makes it an node/array
+        expenses[i].value;
+        total += parseFloat(expenses[i].value || 0); //parseFloat parses a string as a floating number
     }
-    totalElement.textContent = total.toFixed(2);
+    totalElement.textContent = total.toFixed(2); //display total of expenses .tofixed adds two decimal points. 
 
 }
-
-// for (var i = 0; i < expenses.length; i++){
-    //expenses[i].value;
-//}
