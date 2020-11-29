@@ -16,3 +16,25 @@ button {
     padding: 2px;
 
 }
+
+.deleteBtn {
+    margin-left: 5px;
+}
+
+.item-container {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 10px;
+
+}
+
+h2 {
+    display: flex;
+    padding-top: 15px;
+}
