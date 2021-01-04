@@ -24,6 +24,7 @@ table.addEventListener('change', updateAmount);
 //window.addEventListener('load', addRow);
 
 // functions
+const tableCell2 = document.createElement('td');
 
 function addRow(expense) {
   const tableRow = document.createElement('tr');
@@ -33,7 +34,7 @@ function addRow(expense) {
   // creates new table cells top to bottom = right to left in table
   const tableCell1 = document.createElement('td');
   tableRow.appendChild(tableCell1);
-  const tableCell2 = document.createElement('td');
+
   tableCell2.setAttribute('class', 'amount');
   tableCell2.setAttribute('type', 'number');
   tableCell2.setAttribute('value', '0');
@@ -52,6 +53,8 @@ function addRow(expense) {
   tableCell3.textContent = expense.location;
   tableCell4.textContent = expense.item;
 
+  console.log(tableCell2.innerText);
+
   updateAmount();
 }
 
@@ -64,12 +67,8 @@ function deleteRow(event) {
 
 function updateAmount() {
   let total = 0;
-  const expenses = document.querySelectorAll('.amount'); // selects the amount class on line 23 as a node
-  for (let i = 0; i < expenses.length; i++) {
-    //iterate through expenses, as this variable was created to target the .amount class using the querySelectorAll. This inturn makes it an node/array
-    console.log('expenses.value: ', expenses[i].value);
-    console.log('expenses innerText', expenses.innerText);
-    total += parseFloat(expenses[i].value || 0); //parseFloat parses a string as a floating number
-  }
-  totalElement.textContent = total.toFixed(2); //display total of expenses .tofixed adds two decimal points.
+  const totalPlus = tableCell2.innerText;
+  total += Number(totalPlus);
+  totalElement.textContent = total.toFixed(2);
 }
+//display total of expenses .tofixed adds two decimal points.
