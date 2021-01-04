@@ -1,54 +1,75 @@
-
 // selectors
 const addExpenseButton = document.querySelector('.addBtn');
 const table = document.querySelector('#main-table');
 const totalElement = document.querySelector('#total');
-
+const dateInput = document.getElementById('date');
+const amountInput = document.getElementById('amount');
+const locationInput = document.getElementById('purchase');
+const descriptionInput = document.getElementById('description');
 // listeners
 
-document.querySelector('.addBtn').addEventListener('click', addRow);
+const addBtn = document.getElementById('addBtn');
+addBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  const newExpense = {
+    time: dateInput.value,
+    total: amountInput.value,
+    location: locationInput.value,
+    item: descriptionInput.value
+  };
+  addRow(newExpense);
+});
 table.addEventListener('click', deleteRow);
 table.addEventListener('change', updateAmount);
-window.addEventListener("load", addRow);
-
+//window.addEventListener('load', addRow);
 
 // functions
 
-function addRow(){  //add row to table. uses insertAdjacentHTML method putting the html rows before the <tr> ends, hence beforeend
-    table.insertAdjacentHTML('beforeend', `<tr class="table-row"> 
-    <td>
-        <input class="date" type="date">
-    </td>
-    <td>
-        <input class="amount" type="number" value="0" min="0">
-    </td>
-    <td>
-        <input class="purchase" type="text">
-    </td>
-    <td>
-        <textarea class="description" name="" id="" cols="30" rows="2"></textarea>
-    </td>
-    <td>
-        <button class="deleteBtn">delete</button>
-    </td>
-</tr>`); 
-    updateAmount();
+function addRow(expense) {
+  const tableRow = document.createElement('tr');
+  table.appendChild(tableRow);
+  const deleteButton = document.createElement('BUTTON');
+  const deleteButtonText = document.createTextNode('X');
+  // creates new table cells top to bottom = right to left in table
+  const tableCell1 = document.createElement('td');
+  tableRow.appendChild(tableCell1);
+  const tableCell2 = document.createElement('td');
+  tableCell2.setAttribute('class', 'amount');
+  tableCell2.setAttribute('type', 'number');
+  tableCell2.setAttribute('value', '0');
+  tableCell2.setAttribute('min', '0');
+  tableRow.appendChild(tableCell2);
+  const tableCell3 = document.createElement('td');
+  tableRow.appendChild(tableCell3);
+  const tableCell4 = document.createElement('td');
+  tableRow.appendChild(tableCell4);
+  tableRow.appendChild(deleteButton);
+  deleteButton.appendChild(deleteButtonText);
+  deleteButton.setAttribute('class', 'delete-button');
+
+  tableCell1.textContent = expense.time;
+  tableCell2.textContent = expense.total;
+  tableCell3.textContent = expense.location;
+  tableCell4.textContent = expense.item;
+
+  updateAmount();
 }
 
-function deleteRow(event){
-    if(event.target.tagName !== 'BUTTON') return;  // targets tagName that are NOT buttons and will return them.
-    const row = event.target.closest("tr"); // targets closest table row
-    row.parentElement.removeChild(row);  //action to remove specific row
-    updateAmount(); 
+function deleteRow(event) {
+  if (event.target.tagName !== 'BUTTON') return; // targets tagName that are NOT buttons and will return them.
+  const row = event.target.closest('tr'); // targets closest table row
+  row.parentElement.removeChild(row); //action to remove specific row
+  updateAmount();
 }
 
-function updateAmount(){
-    let total = 0;
-    const expenses = document.querySelectorAll('.amount'); // selects the amount class on line 23 as a node
-    for(let i = 0; i < expenses.length; i++){ //iterate through expenses, as this variable was created to target the .amount class using the querySelectorAll. This inturn makes it an node/array
-        expenses[i].value;
-        total += parseFloat(expenses[i].value || 0); //parseFloat parses a string as a floating number
-    }
-    totalElement.textContent = total.toFixed(2); //display total of expenses .tofixed adds two decimal points. 
-
+function updateAmount() {
+  let total = 0;
+  const expenses = document.querySelectorAll('.amount'); // selects the amount class on line 23 as a node
+  for (let i = 0; i < expenses.length; i++) {
+    //iterate through expenses, as this variable was created to target the .amount class using the querySelectorAll. This inturn makes it an node/array
+    console.log('expenses.value: ', expenses[i].value);
+    console.log('expenses innerText', expenses.innerText);
+    total += parseFloat(expenses[i].value || 0); //parseFloat parses a string as a floating number
+  }
+  totalElement.textContent = total.toFixed(2); //display total of expenses .tofixed adds two decimal points.
 }
