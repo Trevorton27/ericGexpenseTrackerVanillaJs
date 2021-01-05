@@ -26,9 +26,16 @@ addBtn.addEventListener('click', (e) => {
     location: locationInput.value,
     item: descriptionInput.value
   };
-  addRow(newExpense);
-  saveExpense(newExpense);
-  updateAmount(newExpense);
+
+  const inputs = document.querySelectorAll('input');
+  console.log('inputs ', inputs);
+  if (inputs.value !== '') {
+    addRow(newExpense);
+    saveExpense(newExpense);
+    updateAmount(newExpense);
+  } else {
+    alert('Please fill out all fields before adding an expense. ');
+  }
 });
 
 //table.addEventListener('change', updateAmount);
