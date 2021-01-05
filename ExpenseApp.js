@@ -40,6 +40,7 @@ function addRow(expense) {
   const id = expense.id;
   const tableRow = document.createElement('tr');
   tableRow.setAttribute('id', id);
+  tableRow.setAttribute('class', 'tableRow');
   table.appendChild(tableRow);
   const deleteButton = document.createElement('BUTTON');
   const deleteButtonText = document.createTextNode('X');

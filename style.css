@@ -67,3 +67,7 @@ input {
 th {
   padding: 0px 30px 0px 30px;
 }
+
+.tableRow {
+  text-align: center;
+}
